@@ -39,13 +39,38 @@ public class Main {
       } else if (cmd.equals("article list")) {
         if (articles.size() == 0) {
           System.out.println("게시글이 없습니다.");
-          continue;
+          //continue;
         } else {
           System.out.println(" 번호 | 제목 ");
           for (int i = articles.size() - 1; i >= 0; i--) {
             Article article = articles.get(i);
             System.out.printf("  %d   |   %s  \n", article.id, article.title);
           }
+        }
+      } else if (cmd.startsWith("article detail 1")) {
+        String[] cmdBits = cmd.split("");
+
+        int id = Integer.parseInt(cmdBits[2]);
+        //boolean found = false; // 발견 여부를 저장하는 변수 found (가정)
+        Article foundArticle = null; // 찾은 게시글을 연결하는 변수 foundArticle (가정)
+
+        for (int i = 0; i < articles.size(); i++) { // 게시글의 존재 여부를 확인하는 과정
+          Article article = articles.get(i); // 일일이 비교하기 위해 가져옴
+          if (article.id == id) { // articles에서 가져온 article 객체의 글번호와 id 비교
+            //found = true;
+            foundArticle = article;
+            break;
+          }
+        }
+        //if (found == false)
+        if (foundArticle == null) {
+          System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
+          //continue;
+        } else {
+          System.out.printf("번호 : %d\n", foundArticle.id);
+          System.out.printf("날짜 : %d\n", "2024-02-14");
+          System.out.printf("제목 : %d\n", foundArticle.title);
+          System.out.printf("내용 : %d\n", foundArticle.body);
         }
       } else {
         System.out.println("존재하지 않는 명령어 입니다.");
